@@ -9,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final OpenaiService api = OpenaiService();
+  final OpenAIService api = OpenAIService();
 
   MyApp({super.key});
 

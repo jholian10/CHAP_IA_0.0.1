@@ -1,17 +1,29 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class OpenaiService extends StatefulWidget {
-  const OpenaiService({super.key});
+class OpenAIService {
+  final String _apiKey = "aqui va la clave de la ia "; // api de prova
 
-  @override
-  State<OpenaiService> createState() => _OpenaiServiceState();
+  Future<String> sendMessage(String message) async {
+    final response = await http.post(
+      Uri.parse("https://api.openai.com/v1/chat/completions"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $_apiKey",
+      },
+      body: jsonEncode({
+        "model": "gpt-3.5-turbo",
+        "messages": [
+          {"role": "user", "content": message},
+        ],
+      }),
+    );
 
-  Future sendMessage(String message) async {}
-}
-
-class _OpenaiServiceState extends State<OpenaiService> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['choices'][0]['message']['content'].trim();
+    } else {
+      throw Exception('Error: ${response.statusCode}\n${response.body}');
+    }
   }
 }

@@ -4,7 +4,7 @@ import 'package:chap_ia_001/views/data/openai_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final OpenaiService api;
+  final OpenAIService api;
 
   ChatBloc(this.api) : super(ChatInitial()) {
     on<SendMessageEvent>((event, emit) async {
