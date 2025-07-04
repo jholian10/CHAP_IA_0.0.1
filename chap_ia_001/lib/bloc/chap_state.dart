@@ -1,6 +1,15 @@
-part of 'chap_bloc.dart';
+abstract class ChatState {}
 
-@immutable
-sealed class ChapState {}
+class ChatInitial extends ChatState {}
 
-final class ChapInitial extends ChapState {}
+class ChatLoading extends ChatState {}
+
+class ChatSuccess extends ChatState {
+  final String response;
+  ChatSuccess(this.response);
+}
+
+class ChatError extends ChatState {
+  final String error;
+  ChatError(this.error);
+}

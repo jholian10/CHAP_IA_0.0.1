@@ -1,4 +1,6 @@
-part of 'chap_bloc.dart';
+abstract class ChatEvent {}
 
-@immutable
-sealed class ChapEvent {}
+class SendMessageEvent extends ChatEvent {
+  final String message;
+  SendMessageEvent(this.message);
+}
