@@ -90,7 +90,7 @@ class _ChatPageState extends State<ChatPage> {
                                 foreground: Paint()
                                   ..style = PaintingStyle.stroke
                                   ..strokeWidth = 1.5
-                                  ..color = Colors.blue, // Borde azul
+                                  ..color = Colors.blue,
                               ),
                             ),
                             Text(
@@ -98,7 +98,7 @@ class _ChatPageState extends State<ChatPage> {
                               style: TextStyle(
                                 fontSize: 24,
                                 fontStyle: FontStyle.italic,
-                                color: Colors.black, // Letra negra
+                                color: Colors.black,
                               ),
                             ),
                           ],
@@ -123,12 +123,14 @@ class _ChatPageState extends State<ChatPage> {
                   Expanded(
                     child: TextField(
                       controller: _controller,
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 14,
                         ),
                         hintText: "Pregunta lo que quieras",
+                        hintStyle: TextStyle(color: Colors.grey.shade400),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -137,6 +139,7 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                   ),
+
                   const SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
@@ -151,7 +154,7 @@ class _ChatPageState extends State<ChatPage> {
                             SendMessageEvent(pregunta),
                           );
                           _controller.clear();
-                          FocusScope.of(context).unfocus(); // Oculta el teclado
+                          FocusScope.of(context).unfocus();
                         }
                       },
                       style: ElevatedButton.styleFrom(
