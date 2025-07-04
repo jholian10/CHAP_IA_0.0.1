@@ -15,7 +15,6 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _controller = TextEditingController();
-  String? lastAnswer;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,6 @@ class _ChatPageState extends State<ChatPage> {
                   ..color = Colors.blue,
               ),
             ),
-
             Text(
               'IAmego',
               style: TextStyle(
@@ -50,90 +48,103 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       ),
-
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SafeArea(
         child: Column(
           children: [
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: "Pregunta lo que quiras",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.blue, width: 3),
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  final pregunta = _controller.text.trim();
-                  if (pregunta.isNotEmpty) {
-                    context.read<ChatBloc>().add(SendMessageEvent(pregunta));
-                    _controller.clear();
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(16),
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Icon(
-                      Icons.arrow_upward,
-                      size: 30,
-                      color: Colors.blue,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 3,
-                          color: Colors.blue,
-                          offset: Offset(0, 0),
-                        ),
-                      ],
-                    ),
-
-                    Icon(Icons.arrow_upward, size: 22, color: Colors.black),
-                  ],
-                ),
-              ),
-            ),
-
-            SizedBox(height: 20),
             Expanded(
-              child: BlocBuilder<ChatBloc, ChatState>(
-                builder: (context, state) {
-                  if (state is ChatLoading) {
-                    return LoadingView();
-                  } else if (state is ChatSuccess) {
-                    return SingleChildScrollView(
-                      child: Text(
-                        state.response,
-                        style: TextStyle(fontSize: 16),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: BlocBuilder<ChatBloc, ChatState>(
+                  builder: (context, state) {
+                    if (state is ChatLoading) {
+                      return LoadingView();
+                    } else if (state is ChatSuccess) {
+                      return SingleChildScrollView(
+                        reverse: true,
+                        child: Text(
+                          state.response,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      );
+                    } else if (state is ChatError) {
+                      return ErrorView(
+                        message: state.error,
+                        onRetry: () {
+                          final pregunta = _controller.text.trim();
+                          if (pregunta.isNotEmpty) {
+                            context.read<ChatBloc>().add(
+                              SendMessageEvent(pregunta),
+                            );
+                          }
+                        },
+                      );
+                    } else {
+                      return Center(
+                        child: Text("Haz una pregunta para comenzar."),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+
+            // Barra de entrada abajo
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                border: Border(top: BorderSide(color: Colors.grey.shade300)),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 14,
+                        ),
+                        hintText: "Pregunta lo que quieras",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
                       ),
-                    );
-                  } else if (state is ChatError) {
-                    return ErrorView(
-                      message: state.error,
-                      onRetry: () {
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.blue, width: 2),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
                         final pregunta = _controller.text.trim();
                         if (pregunta.isNotEmpty) {
                           context.read<ChatBloc>().add(
                             SendMessageEvent(pregunta),
                           );
+                          _controller.clear();
+                          FocusScope.of(context).unfocus(); // Oculta el teclado
                         }
                       },
-                    );
-                  } else {
-                    return Text("Haz una pregunta para comenzar.");
-                  }
-                },
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(14),
+                        backgroundColor: Colors.black,
+                        elevation: 0,
+                      ),
+                      child: Icon(
+                        Icons.arrow_upward,
+                        size: 24,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

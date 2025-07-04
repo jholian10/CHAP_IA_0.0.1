@@ -7,7 +7,7 @@ class OpenAIService {
 
   Future<String> sendMessage(String message) async {
     final response = await http.post(
-      Uri.parse("https://api.openai.com/v1/chat/completions"), // peticion http
+      Uri.parse("https://api.openai.com/v1/chat/completions"),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer $_apiKey",
