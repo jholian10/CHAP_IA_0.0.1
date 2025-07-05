@@ -10,27 +10,27 @@ class ErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 00),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline, color: Colors.redAccent, size: 80),
-            const SizedBox(height: 16),
+            Icon(Icons.error_outline, color: Colors.redAccent, size: 70),
+            const SizedBox(height: 15),
             Text(
-              '¡Algo salió mal!',
+              '¡something went wrong!',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.redAccent,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 00),
             Text(
               message,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 00),
             ElevatedButton.icon(
               onPressed: onRetry,
               icon: Icon(Icons.refresh),
