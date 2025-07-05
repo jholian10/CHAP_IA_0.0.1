@@ -162,7 +162,6 @@ class _ChatPageState extends State<ChatPage> {
                         shape: CircleBorder(),
                         padding: EdgeInsets.all(14),
                         backgroundColor: Colors.black,
-                        elevation: 0,
                       ),
                       child: Icon(
                         Icons.arrow_upward,

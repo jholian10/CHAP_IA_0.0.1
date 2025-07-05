@@ -7,8 +7,17 @@ class LoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // ignore: deprecated_member_use
-      color: Colors.black.withOpacity(0.4),
-      child: const Center(child: CircularProgressIndicator()),
+      color: Colors.white.withOpacity(0.10),
+      child: const Center(
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(
+            color: Colors.blue,
+            strokeWidth: 6.0,
+          ),
+        ),
+      ),
     );
   }
 }
