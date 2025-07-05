@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 
 class OpenAIService {
   final String _apiKey =
-      "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"; // api de prueva
-
+      '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';
   Future<String> sendMessage(String message) async {
     final response = await http.post(
       Uri.parse("https://api.openai.com/v1/chat/completions"),

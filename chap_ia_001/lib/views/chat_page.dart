@@ -20,24 +20,24 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: const Color.fromARGB(255, 0, 2, 70),
         centerTitle: true,
         title: Stack(
           children: [
             Text(
-              'IAmego',
+              'CHAP LUCIANA ❁',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 2
+                  ..strokeWidth = 6
                   ..color = Colors.blue,
               ),
             ),
             Text(
-              'IAmego',
+              'CHAP LUCIANA ❁',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -79,7 +79,31 @@ class _ChatPageState extends State<ChatPage> {
                         },
                       );
                     } else {
-                      return Center(child: Text("¿En qué puedo ayudarte?"));
+                      return Center(
+                        child: Stack(
+                          children: [
+                            Text(
+                              "¿En qué puedo ayudarte?",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontStyle: FontStyle.italic,
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 1.5
+                                  ..color = Colors.blue, // Borde azul
+                              ),
+                            ),
+                            Text(
+                              "¿En qué puedo ayudarte?",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black, // Letra negra
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
                     }
                   },
                 ),
@@ -89,8 +113,10 @@ class _ChatPageState extends State<ChatPage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                border: Border(top: BorderSide(color: Colors.blue.shade300)),
+                color: const Color.fromARGB(255, 0, 2, 70),
+                border: Border(
+                  top: BorderSide(color: Colors.blueGrey.shade300),
+                ),
               ),
               child: Row(
                 children: [
@@ -107,7 +133,7 @@ class _ChatPageState extends State<ChatPage> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.black38,
                       ),
                     ),
                   ),
